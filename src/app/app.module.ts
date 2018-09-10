@@ -8,6 +8,10 @@ import { RegisterComponent } from './login/register.component';
 // import { IncrementadorComponent } from './components/incrementador/incrementador.component';
 //temporal
 import { FormsModule } from '@angular/forms';
+//servico para guardar los cambios
+
+import { ServiceModule } from './services/service.module';
+//para importar todos los servicios
 
 
 @NgModule({
@@ -21,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     APP_ROUTES,
     PagesModule,
-    FormsModule
+    FormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

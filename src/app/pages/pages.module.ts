@@ -16,6 +16,7 @@ import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 //porque lo vamos a usar en grafica1 y pertenece a este compoenente
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 @NgModule({
     declarations: [ //es un  arreglo
     DashboardComponent,
@@ -23,7 +24,8 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
     Graficas1Component,
     PagesComponent,
     IncrementadorComponent,
-    GraficoDonaComponent
+    GraficoDonaComponent,
+    AccountSettingsComponent
 ],
 exports: [ //como vamos a trabajar con estos componentes pero fuera de este modulo
     DashboardComponent,
