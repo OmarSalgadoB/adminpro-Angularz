@@ -17,6 +17,8 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
 //porque lo vamos a usar en grafica1 y pertenece a este compoenente
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 @NgModule({
     declarations: [ //es un  arreglo
     DashboardComponent,
@@ -25,7 +27,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     PagesComponent,
     IncrementadorComponent,
     GraficoDonaComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromesasComponent,
+    RxjsComponent
 ],
 exports: [ //como vamos a trabajar con estos componentes pero fuera de este modulo
     DashboardComponent,
