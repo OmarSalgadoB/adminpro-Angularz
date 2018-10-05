@@ -5,13 +5,15 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import { NopagesfoundComponent} from './nopagesfound/nopagesfound.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; //viene con el uso de ngif  ngfor pipes
+import { PipesModule } from '../pipes/pipes.module';
+
 
 @NgModule({
     declarations: [
         HeaderComponent,
         BreadcrumbsComponent,
         SidebarComponent,
-        NopagesfoundComponent
+        NopagesfoundComponent,
     ],
     exports: [  //vamos a trabajar con estos componentes fuera de este modulo
         HeaderComponent,
@@ -21,7 +23,8 @@ import { CommonModule } from '@angular/common'; //viene con el uso de ngif  ngfo
     ],
     imports: [
         RouterModule,  //para poder utiñizar el router y movesr en las rutas
-        CommonModule
+        CommonModule,
+        PipesModule
     ]
 })
 export class SharedModule {}

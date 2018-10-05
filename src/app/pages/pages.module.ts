@@ -19,6 +19,9 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
 @NgModule({
     declarations: [ //es un  arreglo
     DashboardComponent,
@@ -29,7 +32,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
     GraficoDonaComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
+    ProfileComponent
 ],
 exports: [ //como vamos a trabajar con estos componentes pero fuera de este modulo
     DashboardComponent,
@@ -40,7 +44,9 @@ exports: [ //como vamos a trabajar con estos componentes pero fuera de este modu
     SharedModule,
     PAGES_ROUTES,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    PipesModule,
+    CommonModule  //para manejar las directivas del ngif en las imagenes
   ]
 })
 
