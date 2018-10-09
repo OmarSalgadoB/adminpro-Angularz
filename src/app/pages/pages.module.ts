@@ -22,6 +22,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ModalUploadsComponent } from '../components/modal-uploads/modal-uploads.component';
 @NgModule({
     declarations: [ //es un  arreglo
     DashboardComponent,
@@ -33,7 +35,9 @@ import { CommonModule } from '@angular/common';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsuariosComponent,
+    ModalUploadsComponent
 ],
 exports: [ //como vamos a trabajar con estos componentes pero fuera de este modulo
     DashboardComponent,

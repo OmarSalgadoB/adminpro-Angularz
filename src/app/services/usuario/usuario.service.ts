@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map'; //libreria para usar el operador map
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
+import { map } from 'rxjs/operators';
 @Injectable()
 export class UsuarioService {
    usuario: Usuario;
@@ -94,8 +95,10 @@ logout() {
         //  console.log(url);
         return  this.http.put(url, usuario)
                 .map( (data: any) => {
-                  let usuarioDB = data.usuario; //guardamos en una variable el usuario
-                  this.guardarStorage( usuarioDB, this.token, usuarioDB);
+                  if ( usuario._id === this.usuario._id) { //usuario logeado y usuario respuesta
+                    let usuarioDB = data.usuario; //guardamos en una variable el usuario
+                    this.guardarStorage( usuarioDB, this.token, usuarioDB);
+                  }
                    swal('Usuario Actualizado' , usuario.nombre, 'success');
                    return true;
                 });
@@ -119,4 +122,33 @@ logout() {
                 console.log(resp);
                });
      }
+
+     //CARGAR USUARIOS
+     cargarUsarios(desde: number = 0) {
+
+         let url = URL_SERVICIOS + '/usuario?desde=' + desde;
+         return this.http.get(url);
+
+     }
+     //busqueda por collecccion
+     buscarUsuarios(termino: string) {
+       let url = URL_SERVICIOS + '/busqueda/collection/usuarios/' + termino;
+
+       return this.http.get(url)
+       .pipe(map( (resp: any) => {
+          return resp.usuarios;
+       }));
+     }
+
+     //Borrar  Uusarios
+     borrarUsarios( id: string) {
+      let url = URL_SERVICIOS + '/usuario/' + id;
+      url += '?token=' + this.token;
+      return this.http.delete(url)
+              .map( resp => {
+                swal('Usario Eliminado' , 'El usuario Fue Elimando Correctamente', 'success');
+                return true;
+              });
+     }
+
 }
