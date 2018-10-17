@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="buscarHospital( input.value)" type="text" class="form-control" placeholder="Buscar Hospital">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <button (click)="crearHospital()" type="button" class="btn waves-effect butt waves-light btn-rounded btn-success">
+                    <i class="fa fa-plus"></i>
+                    Agregar Hospital
+                </button>
+                </div>
+                <h3>Hospitales Registrados ( <span>{{_hospitalService.totalHospitales}}</span> )</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hosp of hospitales">
+                            <td class="w-70">
+                                <img (click)="actualizarImagen(hosp)" [src]="hosp.img | imagen :'hospital'" alt="" class="img50  pointer"></td>
+                            <td>
+                                <input [(ngModel)]="hosp.nombre" type="text" name="nombre" class="form-control">
+                            </td>
+                            <td>
+                                <button (click)=" guardarHospital(hosp)" class="btn btn-success btn-circle btn-lg">
+                             <i class="fa fa-save"></i>
+                           </button>
+
+                                <button (click)=" borrarHospital(hosp)" type="button" class="btn btn-danger btn-circle btn-lg">
+                                        <i class="fa fa-trash-o"></i> </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

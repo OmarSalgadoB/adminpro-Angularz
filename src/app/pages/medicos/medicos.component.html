@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="buscarMedicos(input.value)" type="text" class="form-control" placeholder="Buscar Medico">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-right">
+                    <button [routerLink]="['/medico', 'nuevo']" type="button" class="btn waves-effect butt waves-light btn-rounded btn-danger">
+                         <i class="fa fa-plus"></i>
+                            Agregar Medico
+                    </button>
+                </div>
+                <h3 class="card-title">Medicos Registrados (<small>{{_serviceMedico.totalmedicos}}</small>)</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Medico</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medico of medicos">
+                            <td class="w-70">
+                                <img [src]=" medico.img | imagen :'medico'" alt="" class="img50  pointer"></td>
+                            <td>
+                                {{medico.nombre}}
+                            </td>
+                            <td>{{medico.hospital.nombre}}</td>
+                            <td>
+                                <button [routerLink]="['/medico', medico._id]" type="button" class="btn btn-success btn-circle btn-lg">
+                           <i class="fa fa-edit"></i>
+                         </button>
+
+                                <button (click)="eliminarMedico(medico)" type="button" class="btn btn-danger btn-circle btn-lg">
+                                      <i class="fa fa-trash-o"></i> </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
