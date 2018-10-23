@@ -3,14 +3,18 @@ import { Usuario } from '../../models/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config'; //IMPORTAMOS LA CONSTANTE DE CONFIGURACION
 import 'rxjs/add/operator/map'; //libreria para usar el operador map
+import 'rxjs/add/operator/catch'; //para manejar el error
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import 'rxjs/add/observable/throw';
 import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 @Injectable()
 export class UsuarioService {
    usuario: Usuario;
    token: string;
+   menu: any[] = [];
   constructor(public http: HttpClient,
               public router: Router,
               public subir:  SubirArchivoService) {
@@ -27,21 +31,24 @@ cargarStorage() {
   if (localStorage.getItem('token')) {
      this.token = localStorage.getItem('token');
      this.usuario = JSON.parse(localStorage.getItem('usuario')) ;
+     this.menu = JSON.parse(localStorage.getItem('menu')) ;
   } else {
      this.token = '';
      this.usuario = null;
+     this.menu = [];
   }
 }
 //============================================
  //guardar storage
-guardarStorage( id: string, token: string, usuario: Usuario ) {
+guardarStorage( id: string, token: string, usuario: Usuario, menu: any ) {
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
   localStorage.setItem('usuario', JSON.stringify(usuario) );
-
+  localStorage.setItem('menu', JSON.stringify(menu) );
   this.usuario = usuario;
   this.token = token;
+  this.menu = menu;
 }
 
 //login google
@@ -60,8 +67,14 @@ Login( usuario: Usuario, recuerdame: boolean = false) {
  let url =  URL_SERVICIOS + '/login';
  return this.http.post(url, usuario) //mandamos el url y el usuario en el post
   .map((data: any) => { //MANUMULAMOS LA DATA PARA GRABARLA EN EL LOCAL STORAGE
-        this.guardarStorage(data.id, data.token, data.usuario );
+       console.log(data);
+       this.guardarStorage(data.id, data.token, data.usuario, data.menu );
        return true; //PODEMOS OBIAL EL PASO SOLO ES COMO PARA DECIR SI SE LOGEO
+  })
+  .catch( err => {
+         console.log(err.error.mensaje);
+         swal('Error en el login' , err.error.mensaje, 'error');
+         return Observable.throw(err);
   });
 }
 //========================================
@@ -70,10 +83,11 @@ Login( usuario: Usuario, recuerdame: boolean = false) {
 logout() {
   this.usuario = null;   //resetiamos las varibles
   this.token = '';
+  this.menu = [];
    //tambien las removemos del local storaage
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
-
+  localStorage.removeItem('menu');
   this.router.navigate(['/login']);
 }
 
@@ -84,7 +98,12 @@ logout() {
            .map( (res: any) => { //envolvemos la repuesta para que no marque errror en el return
             swal('Usuario Creado' , usuario.email, 'success');
             return res.usuario;
-           });
+           })
+           .catch( err => {
+        
+            swal(err.error.mensaje , err.error.errors.message, 'error');
+            return Observable.throw(err);
+     });
    }
 
    //Actualizar Usuario ya estando dentro de la palicacio
@@ -97,7 +116,7 @@ logout() {
                 .map( (data: any) => {
                   if ( usuario._id === this.usuario._id) { //usuario logeado y usuario respuesta
                     let usuarioDB = data.usuario; //guardamos en una variable el usuario
-                    this.guardarStorage( usuarioDB, this.token, usuarioDB);
+                    this.guardarStorage( usuarioDB, this.token, usuarioDB, this.menu);
                   }
                    swal('Usuario Actualizado' , usuario.nombre, 'success');
                    return true;
@@ -116,7 +135,7 @@ logout() {
                  //le decimos que la pripiedas del usuario logeado img sera igual al resltado de la respuesta
                  swal('Imagen Actualizada' , this.usuario.nombre, 'success');
                  //y ahora si guardamos en el storage
-                 this.guardarStorage(id, this.token, this.usuario);
+                 this.guardarStorage(id, this.token, this.usuario, this.menu);
                 })
                .catch( resp => {
                 console.log(resp);
