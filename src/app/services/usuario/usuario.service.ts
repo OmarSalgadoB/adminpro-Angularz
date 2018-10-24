@@ -22,6 +22,24 @@ export class UsuarioService {
     this.cargarStorage();
    }
 
+//rENOVAR TOKEN
+renuevaToken () {
+  let url =  URL_SERVICIOS + '/login/renuevaToken';
+  url += '?token=' + this.token;
+
+  return  this.http.get(url)
+            .map( (rep: any) => {
+               this.token = rep.token;
+               localStorage.setItem('token', this.token );
+               return true;
+            })
+            .catch( err => {
+              this.router.navigate(['/login']);
+              swal('Error en el token' , 'No se puedo actualizar token', 'error');
+              return Observable.throw(err);
+       });
+}
+
 //para validat que este loguiado y usar los guards
 estaLogueado() {
  return (this.token.length > 5) ? true : false;

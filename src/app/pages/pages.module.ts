@@ -35,7 +35,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     DashboardComponent,
     ProgressComponent,
     Graficas1Component,
-    PagesComponent,
+    // PagesComponent,
     IncrementadorComponent,
     GraficoDonaComponent,
     AccountSettingsComponent,
@@ -43,7 +43,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RxjsComponent,
     ProfileComponent,
     UsuariosComponent,
-    ModalUploadsComponent,
+    // ModalUploadsComponent, va hacer usado directamente por el pagecomponente
     HospitalesComponent,
     MedicosComponent,
     MedicoComponent,
